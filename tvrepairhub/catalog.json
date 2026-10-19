@@ -1,0 +1,150 @@
+{
+ "services": [
+  {
+   "slug": "display",
+   "icon": "📺",
+   "title": "Display & Panel Repair",
+   "short": "Cracked screens, lines, patches and flicker.",
+   "long": "Cracked screen, vertical lines or dark patches? We inspect the panel, T-Con board and cables to find the real cause, then give you an honest repair or replacement quote.",
+   "faults": [
+    "Cracked or broken screen",
+    "Vertical or horizontal lines",
+    "Patches, flicker or wrong colours"
+   ]
+  },
+  {
+   "slug": "oled",
+   "icon": "✨",
+   "title": "OLED & Plasma TV Repair",
+   "short": "Specialist repair for OLED and plasma panels.",
+   "long": "OLED and plasma TVs need careful handling. We diagnose panel, driver and power faults on both technologies and give you an honest repair-or-replace opinion.",
+   "faults": [
+    "Dimming, image retention or burn-in concerns",
+    "Lines, patches or no picture on OLED",
+    "Plasma buzzing, dark or no display"
+   ]
+  },
+  {
+   "slug": "backlight",
+   "icon": "💡",
+   "title": "Backlight Repair",
+   "short": "Dark or dim screen, sound but no picture.",
+   "long": "Most dark-screen faults are failed LED backlight strips. We test, replace strips with quality parts and calibrate for even brightness.",
+   "faults": [
+    "Screen very dim or dark",
+    "Picture visible only with a torch",
+    "Half the screen lit"
+   ]
+  },
+  {
+   "slug": "power",
+   "icon": "🔌",
+   "title": "Power & Dead TV Repair",
+   "short": "TV not switching on or turning off by itself.",
+   "long": "We trace power supply, standby circuit and protection faults, and repair or replace only what has actually failed.",
+   "faults": [
+    "TV does not switch on",
+    "Standby light blinking",
+    "Clicking sound or random shutdown"
+   ]
+  },
+  {
+   "slug": "motherboard",
+   "icon": "🧠",
+   "title": "Motherboard Repair",
+   "short": "Chip-level mainboard and T-Con repair.",
+   "long": "From logo-stuck TVs to burnt boards, we repair mainboards at component level wherever possible, saving you the cost of a full replacement.",
+   "faults": [
+    "Stuck on logo or no signal",
+    "Restart loops",
+    "Burnt board or water damage"
+   ]
+  },
+  {
+   "slug": "smart",
+   "icon": "📶",
+   "title": "Smart TV & Software",
+   "short": "Hang, slow apps, WiFi and firmware issues.",
+   "long": "Android, Google TV, WebOS, Tizen and more: we fix software faults, update firmware and restore your TV to smooth working order.",
+   "faults": [
+    "Hanging, slow or restarting",
+    "WiFi, Bluetooth or app errors",
+    "Firmware update and OS reset"
+   ]
+  },
+  {
+   "slug": "sound",
+   "icon": "🔊",
+   "title": "Sound & Speaker Repair",
+   "short": "No audio, crackling, distortion or speaker faults.",
+   "long": "From a silent TV to crackling or muffled speakers, we test the speakers, audio amplifier and sound settings, then repair or replace only what has failed.",
+   "faults": [
+    "No sound or very low volume",
+    "Crackling, buzzing or distorted audio",
+    "Blown speaker or audio board fault"
+   ]
+  },
+  {
+   "slug": "ports",
+   "icon": "🎛️",
+   "title": "HDMI, USB & Ports",
+   "short": "No signal, loose or damaged ports.",
+   "long": "Port replacement and signal troubleshooting for HDMI, ARC, USB, AV and antenna inputs.",
+   "faults": [
+    "HDMI no signal",
+    "USB not detected",
+    "Loose or damaged port"
+   ]
+  },
+  {
+   "slug": "mounting",
+   "icon": "🧱",
+   "title": "Wall Mount & Installation",
+   "short": "Safe mounting, setup and tuning.",
+   "long": "Secure wall mounting, new TV setup, channel tuning and clean cable management at your home.",
+   "faults": [
+    "Wall bracket fitting",
+    "New TV setup and tuning",
+    "Neat cable management"
+   ]
+  }
+ ],
+ "brands": [
+  "Samsung",
+  "LG",
+  "Sony",
+  "Mi",
+  "Redmi",
+  "OnePlus",
+  "Realme",
+  "TCL",
+  "Panasonic",
+  "Philips",
+  "Toshiba",
+  "Hisense",
+  "Sharp",
+  "Hitachi",
+  "Haier",
+  "Vu",
+  "iFFALCON",
+  "Motorola",
+  "Acer",
+  "Nokia",
+  "Thomson",
+  "Kodak",
+  "Blaupunkt",
+  "Onida",
+  "Videocon",
+  "Micromax",
+  "Sansui",
+  "Lloyd",
+  "BPL",
+  "Skyworth",
+  "Croma",
+  "Intex",
+  "Mitashi",
+  "Akai",
+  "Godrej",
+  "Daiwa"
+ ]
+}

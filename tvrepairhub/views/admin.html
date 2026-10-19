@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>TVREPAIRHUB Admin</title>
+<style>
+:root{--bg:#f3efe6;--sf:#fff;--tx:#14203a;--mu:#5b6579;--g:#b8893b;--bd:#e4dccb;--sh:0 8px 24px rgba(14,27,52,.1)}
+html[data-t=dark]{--bg:#0b1322;--sf:#131e33;--tx:#eef1f7;--mu:#a5b0c6;--g:#d9a94f;--bd:#25324d;--sh:0 8px 24px rgba(0,0,0,.4)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;transition:background .3s,color .3s}
+header{background:linear-gradient(120deg,#0e1b34,#1b2d52,#0e1b34);background-size:200% 200%;animation:bg 10s ease infinite;color:#f4efe4;position:sticky;top:0;z-index:10;box-shadow:0 4px 18px rgba(0,0,0,.3)}
+@keyframes bg{50%{background-position:100% 50%}}
+.hd{max-width:1180px;margin:auto;padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font:700 20px Georgia,serif;letter-spacing:1px;margin-right:auto}.logo b{color:#e3b965}.logo small{font:12px system-ui;opacity:.7;margin-left:8px;letter-spacing:2px}
+.b{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#f4efe4;padding:8px 14px;border-radius:9px;cursor:pointer;font:600 13px system-ui;text-decoration:none;transition:.25s}.b:hover{background:#e3b965;color:#14203a;transform:translateY(-2px)}
+main{max-width:1180px;margin:auto;padding:20px 18px 60px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.st{background:var(--sf);border:1px solid var(--bd);border-top:4px solid var(--c);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:var(--sh);transition:.3s;animation:in .5s both}
+.st:hover{transform:translateY(-5px)}.st.on{outline:3px solid var(--c);outline-offset:2px}
+.st b{display:block;font:700 32px Georgia,serif;color:var(--c)}.st span{color:var(--mu);font-size:13px;font-weight:600}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.bar input,.bar select{padding:11px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);font:inherit}.bar input{flex:1;min-width:220px}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.cd{background:var(--sf);border:1px solid var(--bd);border-left:5px solid var(--c);border-radius:14px;padding:16px;box-shadow:var(--sh);animation:in .5s both;animation-delay:calc(var(--i)*45ms);transition:transform .3s}
+.cd:hover{transform:translateY(-4px)}.cd.flash{animation:fl 1.4s}
+@keyframes in{from{opacity:0;transform:translateY(16px)}}@keyframes fl{0%,100%{box-shadow:var(--sh)}30%{box-shadow:0 0 0 5px var(--c)}}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}.id{font:600 12px ui-monospace,monospace;color:var(--mu)}
+.pill{background:var(--c);color:#fff;padding:3px 12px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}.pill.p{animation:pu 1.8s infinite}
+@keyframes pu{0%{box-shadow:0 0 0 0 rgba(59,130,246,.6)}100%{box-shadow:0 0 0 10px rgba(59,130,246,0)}}
+.nm{font:700 19px Georgia,serif;margin:2px 0 8px}.row{color:var(--mu);margin:4px 0;word-break:break-word}.row b{color:var(--tx)}
+.ac{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.ac a,.ac button,.ac select{padding:8px 12px;border-radius:9px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);font:600 13px system-ui;cursor:pointer;text-decoration:none;transition:.2s}
+.ac a:hover,.ac button:hover{border-color:var(--g);transform:translateY(-2px)}.ac .del:hover{background:#ef4444;color:#fff;border-color:#ef4444}.ac select{flex:1;min-width:130px}
+.em{text-align:center;padding:60px 10px;color:var(--mu);font-size:18px;grid-column:1/-1}
+#ts{position:fixed;right:16px;bottom:16px;display:grid;gap:8px;z-index:50}.toast{background:#14203a;color:#fff;padding:12px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:in .3s;border-left:4px solid #22c55e}.toast.bad{border-color:#ef4444}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><div class="hd"><div class="logo">TV<b>REPAIR</b>HUB<small>ADMIN</small></div><button class="b" id="rf">⟳ Refresh</button><a class="b" href="/api/admin/export.csv" download>⬇ CSV</a><button class="b" id="th">🌙</button></div></header>
+<main><div class="stats" id="stats"></div><div class="bar"><input id="q" placeholder="Search name, phone, brand, address or ID"><select id="so"><option value="d">Newest first</option><option value="a">Oldest first</option></select></div><div class="list" id="ls"></div></main><div id="ts"></div>
+<script>
+const ST=['New','Contacted','In Progress','Completed','Cancelled'],COL={All:'#b8893b',New:'#3b82f6',Contacted:'#f59e0b','In Progress':'#8b5cf6',Completed:'#22c55e',Cancelled:'#ef4444'};
+let D=[],F='All',N=null,flash=null,first=true;
+const $=s=>document.querySelector(s);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const R=document.documentElement;
+function theme(t){R.dataset.t=t;$('#th').textContent=t==='dark'?'☀️':'🌙';try{localStorage.setItem('at',t)}catch(e){}}
+let sv=null;try{sv=localStorage.getItem('at')}catch(e){}
+theme(sv||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+$('#th').onclick=()=>theme(R.dataset.t==='dark'?'light':'dark');
+function toast(m,bad){const t=el('div','toast'+(bad?' bad':''),m);$('#ts').append(t);setTimeout(()=>t.remove(),3200)}
+async function api(u,o){const r=await fetch(u,o);if(!r.ok)throw new Error('failed');return r.json()}
+function anim(e,n){if(!first){e.textContent=n;return}const t0=performance.now();const f=t=>{const p=Math.min((t-t0)/700,1);e.textContent=Math.round(n*p);if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+async function load(quiet){try{D=await api('/api/admin/complaints')}catch(e){toast('Could not load complaints',1);return}
+ if(quiet&&N!==null&&D.length>N)toast('🔔 New complaint received!');N=D.length;render()}
+function render(){
+ const S=$('#stats');S.innerHTML='';
+ ['All',...ST].forEach((k,i)=>{const n=k==='All'?D.length:D.filter(c=>c.status===k).length;const c=el('div','st'+(F===k?' on':''));c.style.setProperty('--c',COL[k]);c.style.animationDelay=i*60+'ms';const b=el('b','',0);anim(b,n);c.append(b,el('span','',k==='All'?'All complaints':k));c.onclick=()=>{F=k;render()};S.append(c)});
+ first=false;
+ const q=$('#q').value.trim().toLowerCase();
+ let L=D.filter(c=>(F==='All'||c.status===F)&&(!q||[c.id,c.name,c.phone,c.brand,c.type,c.address,c.problem].join(' ').toLowerCase().includes(q)));
+ L.sort((a,b)=>(new Date(a.createdAt)-new Date(b.createdAt))*($('#so').value==='a'?1:-1));
+ const ls=$('#ls');ls.innerHTML='';
+ if(!L.length){ls.append(el('div','em','📭 No complaints here yet.'));return}
+ L.forEach((c,i)=>{const d=el('div','cd'+(flash===c.id?' flash':''));d.style.setProperty('--c',COL[c.status]||COL.All);d.style.setProperty('--i',Math.min(i,12));
+  const t=el('div','top');t.append(el('span','id',c.id+' · '+new Date(c.createdAt).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})),el('span','pill'+(c.status==='New'?' p':''),c.status));
+  const r=(l,v)=>{const x=el('div','row');x.append(el('b','',l+' '),document.createTextNode(v));return x};
+  const ac=el('div','ac');
+  const call=el('a','','📞 Call');call.href='tel:+91'+c.phone;
+  const wa=el('a','','💬 WhatsApp');wa.href='https://wa.me/91'+c.phone;wa.target='_blank';wa.rel='noopener';
+  const sel=el('select');ST.forEach(s=>{const o=el('option','',s);o.value=s;if(s===c.status)o.selected=true;sel.append(o)});
+  sel.onchange=async()=>{sel.disabled=true;try{await api('/api/admin/complaints/'+c.id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status:sel.value})});flash=c.id;toast('Status updated to '+sel.value+' ✔');await load();flash=null}catch(e){toast('Could not update status',1);sel.value=c.status;sel.disabled=false}};
+  const del=el('button','del','🗑 Delete');del.onclick=async()=>{if(!confirm('Delete complaint '+c.id+' permanently?'))return;try{await api('/api/admin/complaints/'+c.id,{method:'DELETE'});toast('Complaint deleted');load()}catch(e){toast('Could not delete',1)}};
+  ac.append(call,wa,sel,del);
+  d.append(t,el('div','nm',c.name),r('📍',c.address),r('📺',c.brand+' · '+c.type),r('🛠',c.problem),ac);ls.append(d)})}
+$('#rf').onclick=()=>{load();toast('Refreshed')};$('#q').oninput=render;$('#so').onchange=render;
+load();setInterval(()=>load(true),30000);
+</script></body></html>
